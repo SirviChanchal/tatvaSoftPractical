@@ -1,0 +1,43 @@
+package com.example.demo.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.demo.exception.MyException;
+import com.example.demo.request.CreateProfessorRequest;
+import com.example.demo.request.CreateStudentRequest;
+import com.example.demo.response.GetStudentResponse;
+import com.example.demo.service.UserService;
+
+@RestController
+public class AdminController {
+
+	@Autowired
+	UserService userService;
+
+	@PostMapping("admin/addStudent")
+	public boolean createUser(@RequestBody CreateStudentRequest request) throws MyException {
+		return userService.createStudent(request);
+	}
+
+	@PostMapping("admin/addProfessor")
+	public boolean createUser(@RequestBody CreateProfessorRequest request) throws MyException {
+		return userService.createProfessor(request);
+	}
+	
+	@GetMapping("admin/getAllStudent")
+	public List<GetStudentResponse> getAllStudent() throws MyException {
+		return userService.getAllStudent();
+	}
+	
+	@GetMapping("admin/getAllProfessor")
+	public List<GetStudentResponse> getAllProfessor() throws MyException {
+		return userService.getAllProfessors();
+	}
+
+}

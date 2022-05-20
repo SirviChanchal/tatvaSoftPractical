@@ -1,0 +1,109 @@
+package com.example.demo.serviceImpl;
+
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.demo.entity.RoleEntity;
+import com.example.demo.entity.UserEntity;
+import com.example.demo.exception.MyException;
+import com.example.demo.repository.RoleRepository;
+import com.example.demo.repository.UserRepository;
+import com.example.demo.request.CreateProfessorRequest;
+import com.example.demo.request.CreateStudentRequest;
+import com.example.demo.response.GetUserResponse;
+import com.example.demo.service.UserService;
+
+@Service
+public class AdminServiceImpl implements UserService {
+
+	@Autowired
+	UserRepository userRepository;
+
+	@Autowired
+	RoleRepository roleRepository;
+
+	@Override
+	public List<GetUserResponse> getAllUser() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public GetUserResponse getUserById(long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean createStudent(CreateStudentRequest request) throws MyException {
+
+		UserEntity admin = userRepository.findById(request.getAdminId()).orElse(null);
+		RoleEntity adminRole = roleRepository.findById((long) 3).orElseThrow(null);
+
+		if (admin == null || admin.getRole() != adminRole) {
+			throw new MyException("Access is deniend, Role mismatch");
+		}
+
+		boolean response = false;
+
+		RoleEntity role = roleRepository.findById((long) 1).orElseThrow(null);
+
+		UserEntity student = new UserEntity();
+		student.setAddress(request.getAddress());
+		student.setCreatedAt(new Date());
+		student.setMobileNumber(request.getMobileNumber());
+		student.setName(request.getName());
+		student.setPassword(request.getPassword());
+		student.setRole(role);
+		student.setStatus(0);
+		student.setUpdatedAt(new Date());
+		student.setUsername(request.getUsername());
+		student.setStandard(request.getStandard());
+
+		try {
+			userRepository.save(student);
+			response = true;
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return response;
+	}
+
+	@Override
+	public boolean createProfessor(CreateProfessorRequest request) throws MyException {
+
+		boolean response = false;
+		
+		UserEntity admin = userRepository.findById(request.getAdminId()).orElse(null);
+		RoleEntity adminRole = roleRepository.findById((long) 3).orElseThrow(null);
+
+		if (admin == null || admin.getRole() != adminRole) {
+			throw new MyException("Access is deniend, Role mismatch");
+		}
+
+		RoleEntity role = roleRepository.findById((long) 2).orElseThrow(null);
+
+		UserEntity professor = new UserEntity();
+		professor.setAddress(request.getAddress());
+		professor.setCreatedAt(new Date());
+		professor.setMobileNumber(request.getMobileNumber());
+		professor.setName(request.getName());
+		professor.setPassword(request.getPassword());
+		professor.setRole(role);
+		professor.setStatus(0);
+		professor.setUpdatedAt(new Date());
+		professor.setUsername(request.getUsername());
+
+		try {
+			userRepository.save(professor);
+			response = true;
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return response;
+	}
+
+}

@@ -1,0 +1,15 @@
+package com.example.demo.request;
+
+public class CreateUserRequest {
+	private String name;
+
+	private String username;
+
+	private String password;
+
+	private String address;
+
+	private String mobileNumber;
+
+	private long roleId;
+}

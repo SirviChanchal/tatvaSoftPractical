@@ -1,0 +1,22 @@
+package com.example.demo.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.demo.request.CreateUserRequest;
+import com.example.demo.service.UserService;
+
+@RestController
+public class AdminController {
+
+	@Autowired
+	UserService userService;
+
+	@PostMapping("admin/addUser")
+	public boolean createUser(@RequestBody CreateUserRequest request) {
+		return userService.createUser(request);
+	}
+
+}

@@ -1,0 +1,66 @@
+package com.example.demo.serviceImpl;
+
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.demo.entity.RoleEntity;
+import com.example.demo.entity.UserEntity;
+import com.example.demo.repository.RoleRepository;
+import com.example.demo.repository.UserRepository;
+import com.example.demo.request.CreateStudentRequest;
+import com.example.demo.request.CreateUserRequest;
+import com.example.demo.response.GetUserResponse;
+import com.example.demo.service.UserService;
+
+@Service
+public class AdminServiceImpl implements UserService {
+
+	@Autowired
+	UserRepository userRepository;
+
+	@Autowired
+	RoleRepository roleRepository;
+
+	@Override
+	public List<GetUserResponse> getAllUser() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public GetUserResponse getUserById(long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean createStudent(CreateStudentRequest request) {
+
+		boolean response = false;
+
+		RoleEntity role = roleRepository.findById(request.getRoleId()).orElseThrow(null);
+
+		UserEntity user = new UserEntity();
+		user.setAddress(request.getAddress());
+		user.setCreatedAt(new Date());
+		user.setMobileNumber(request.getMobileNumber());
+		user.setName(request.getName());
+		user.setPassword(request.getPassword());
+		user.setRole(role);
+		user.setStatus(0);
+		user.setUpdatedAt(new Date());
+		user.setUsername(request.getUsername());
+
+		try {
+			userRepository.save(user);
+			response = true;
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return response;
+	}
+
+}

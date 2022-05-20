@@ -1,0 +1,30 @@
+package com.example.demo.serviceImpl;
+
+import java.util.List;
+
+import com.example.demo.request.CreateUserRequest;
+import com.example.demo.response.GetUserResponse;
+import com.example.demo.service.UserService;
+
+public class AdminServiceImpl implements UserService{
+
+	@Override
+	public List<GetUserResponse> getAllUser() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public GetUserResponse getUserById(long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean createUser(CreateUserRequest createUserRequest) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	
+}

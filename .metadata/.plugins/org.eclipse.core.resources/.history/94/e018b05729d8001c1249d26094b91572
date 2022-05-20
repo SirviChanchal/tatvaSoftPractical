@@ -1,0 +1,21 @@
+package com.example.demo.service;
+
+import java.util.List;
+
+import com.example.demo.exception.MyException;
+import com.example.demo.request.CreateProfessorRequest;
+import com.example.demo.request.CreateStudentRequest;
+import com.example.demo.response.GetUserResponse;
+
+public interface UserService {
+
+	List<GetUserResponse> getAllUser();
+
+	GetUserResponse getUserById(long id);
+
+	boolean createStudent(CreateStudentRequest request) throws MyException;
+
+	boolean createProfessor(CreateProfessorRequest request) throws MyException;
+
+	List<GetUserResponse> getAllStudent();
+}

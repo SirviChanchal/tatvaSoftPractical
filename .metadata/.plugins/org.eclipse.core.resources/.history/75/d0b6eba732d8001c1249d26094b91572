@@ -1,0 +1,32 @@
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+public class Task2 {
+
+	
+	public static String format(Date currentDate,Date lastDate, int counter)
+	{
+		counter++;
+		SimpleDateFormat formatter=new SimpleDateFormat("ddMMMMyyyy");
+		StringBuilder response=new StringBuilder();
+		response.append(formatter.format(currentDate));
+		System.out.println(response);
+		
+		if(counter>=10000 || currentDate.compareTo(lastDate)>0)
+		{
+			counter=0;
+		}
+		response.append(String.format("%04d", counter));
+		return response.toString();
+	}
+	
+	
+	public static void main(String[] args) {
+
+		Task2 task2=new Task2();
+		System.out.println(task2.format(new Date()));
+		
+		
+		
+	}
+}
